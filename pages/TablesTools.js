@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Table from "../components/Table/TableSala";
-import TableDisponibilidadeSalas from "../components/Table/TableDisponibilidadeSalas";
 
-const Salas = () => {
+const TablesTools = () => {
 const [getSala, setSala] = useState([]);
 const [getAgendamento, setAgendamento] = useState([]);
 const [getSalasDisponiveis, setSalasDisponiveis] = useState([]);
@@ -43,15 +42,15 @@ useEffect(() => {
     }, []);
 
     const treatDataDispo = getSalasDisponiveis.map((e) => {
-        return Object.assign(e.sala, e.agendamento)
+        return Object.assign(e.sala)
       })
       const treatDataInd = getSalasIndisponiveis.map((e) => {
-        return Object.assign(e.sala, e.agendamento)
+        return Object.assign(e.sala)
       })
 
 return (
 <>
-<Table title={["Agendamentos"]} heads={["id", "titulo", "Data Inicio", "Data Fim", "Nº Sala"]} items={getAgendamento} />
+<Table title={["Agendamentos"]} heads={["titulo", "Data Inicio", "Data Fim", "Nº Sala"]} items={getAgendamento} />
 <br></br>
 <Table title={["Salas"]} heads={["Nº Sala", "Nome"]} items={getSala} />
 <br></br>
@@ -62,4 +61,4 @@ return (
 );
 };
 
-export default Salas;
+export default TablesTools;

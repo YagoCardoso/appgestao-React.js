@@ -9,25 +9,22 @@ const Layout = ({children}) => {
     return (
 
         <>
-        <header>
-           <AppBar>
-               <div>
-               <Link href={`/agendamentos`}>
-            <a>Incluir Sala</a>
-          </Link>
-        
-               </div>
-               <div>
-               <Link href={`/sua-url`}>
-            <a>Reservar Sala</a>
-          </Link>
-               </div>
-           
-
-           </AppBar>
-           <br></br>
-           <hr></hr>
-        </header>
+            <header>
+                <AppBar>
+                    <div>
+                    <Link href={`/TablesTools`}>
+                            <a>Home |</a>
+                        </Link>
+                        <Link href={`/CadSala`}>
+                            <a> Incluir Sala |</a>
+                        </Link>
+                        <Link href={`/TableTools`}>
+                            <a> Reservar  Sala</a>
+                        </Link>
+                    </div>
+                </AppBar>
+                <br></br>
+            </header>
         {children}
         <footer>
             meu footer
