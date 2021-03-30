@@ -50,13 +50,13 @@ useEffect(() => {
 
 return (
 <>
-<Table title={["Agendamentos"]} heads={["titulo", "Data Inicio", "Data Fim", "Nº Sala"]} items={getAgendamento} />
+<Table title={["Agendamentos"]} heads={["id","titulo", "Data Inicio", "Data Fim", "Nº Sala","Ações"]} items={getAgendamento} />
 <br></br>
-<Table title={["Salas"]} heads={["Nº Sala", "Nome"]} items={getSala} />
+<Table title={["Salas"]} heads={["Nº Sala", "Nome","Ações"]} items={getSala} btns={<button>+</button>} />
 <br></br>
-<Table title={["Salas Disponiveis"]} heads={["Nº Sala", "Nome"]} items={treatDataDispo} />
+<Table title={["Salas Disponiveis"]} heads={["Nº Sala", "Nome","Ações"]} items={treatDataDispo} />
 <br></br>
-<Table title={["Salas Indisponiveis"]} heads={["Nº Sala", "Nome"]} items={treatDataInd} />
+<Table title={["Salas Indisponiveis"]} heads={["Nº Sala", "Nome","Ações"]} items={treatDataInd} />
 </>
 );
 };

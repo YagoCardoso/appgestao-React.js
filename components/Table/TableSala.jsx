@@ -40,7 +40,9 @@ const Table = ({ title, heads, items }) => {
             <TableRow key={room.idsala}>
               {Object.values(room).map((f) => (
                 <TableCell key={f}>{f}</TableCell>
+                
               ))}
+              <TableCell><button>+</button><button>edit</button><button>x</button></TableCell>
             </TableRow>
           ))}
         </TableBody>
