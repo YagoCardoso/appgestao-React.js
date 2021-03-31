@@ -23,10 +23,8 @@ import { green } from '@material-ui/core/colors';
 import axios from "axios";
 
 const initialValue = {
-  TITULO: '',
-  DT_INICIO: '',
-  DT_FIM:'',
-  IDSALA:'',
+  IDSALA: '',
+  NOME: '',
 }
 
 const Table = ({ title, heads, items }) => {
@@ -50,7 +48,7 @@ const Table = ({ title, heads, items }) => {
     setValues({ ...values, [name]: value });
   }
 
-  function onSubimitFormAgendamento(ev){
+  function onSubimitFormSala(ev){
     ev.preventDefault();
 
     try {
@@ -126,7 +124,7 @@ const Table = ({ title, heads, items }) => {
               <TableCell>
               <IconButton onClick={handleClickOpen} style={{ color: green[500] }} aria-label="add"><AddBox /></IconButton>
               <IconButton color="primary" aria-label="edit"><Edit /></IconButton>
-              <IconButton onClick={() => deletarSala(room.idagendamento)} color="action" aria-label="delete"><DeleteIcon /></IconButton>
+              <IconButton onClick={() => deletarSala(room.idagendam)} color="action" aria-label="delete"><DeleteIcon /></IconButton>
               </TableCell>
             </TableRow>
           ))}
@@ -146,21 +144,16 @@ const Table = ({ title, heads, items }) => {
       </MaterialTable>
       <div>
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title"> Reservar Sala</DialogTitle>
+          <DialogTitle id="form-dialog-title"> Cadastro Salas</DialogTitle>
           <DialogContent>
             <DialogContentText>
+              Digite o Nº da sala e o Nome da sala abaixo!
         </DialogContentText>
-        <form onSubmit={onSubimitFormAgendamento}>
+        <form onSubmit={onSubimitFormSala}>
               {/* <TextField onChange ={onChange} margin="dense" id="IDSALA" label="Nº Sala" type="number" fullWidth />
               <TextField onChange ={onChange} margin="dense" id="NOME" label="Nome Sala" type="" fullWidth /> */}
-              <div><label>Titulo&nbsp;&nbsp;&nbsp;</label>
-               <input placeholder="Titulo" type="text" name="TITULO" onChange ={onChange} /></div>
-              <br></br>
-              <div><label>Data Inicio&nbsp;</label> <input placeholder="Data Inicio" type="text" name="DT_INICIO" type="datetime-local" onChange ={onChange} /></div>
-              <br></br>
-               <div> <label>Data Fim&nbsp;</label><input placeholder="Data Fim" type="text" name="DT_FIM" type="datetime-local" onChange ={onChange} /></div>
-               <br></br>
-               <div><label>Nº da Sala&nbsp;</label><input placeholder="Nº da Sala" type="text" name="IDSALA" onChange ={onChange} /></div>
+               <input placeholder="Nº Sala" type="text" name="IDSALA" onChange ={onChange} />
+               <input placeholder="Nome Sala" type="text" name="NOME" onChange ={onChange} />
               <DialogActions>
                 <Button onClick={handleClose} color="primary">Cancelar </Button>
                 <Button type="submit" color="primary"> Salvar </Button>

@@ -1,3 +1,4 @@
+import React, { Component, useRef } from 'react'
 import { useState } from "react";
 import { array, string } from "prop-types";
 import MaterialTable from "@material-ui/core/Table";
@@ -14,18 +15,23 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import  AddBox  from '@material-ui/icons/AddBox';
 import  Edit  from '@material-ui/icons/Edit';
 import { green } from '@material-ui/core/colors';
-import React from 'react';
+import axios from "axios";
+
+const initialValue = {
+  IDSALA: '',
+  NOME: '',
+}
 
 const Table = ({ title, heads, items }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [open, setOpen] = React.useState(false); 
+  const [values, setValues] = useState(initialValue);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -36,27 +42,36 @@ const Table = ({ title, heads, items }) => {
     setPage(0);
   };
 
-  const cadastrarSala = async (id) => {
-    try {
-        const response = await axios.post(`https://localhost:44354/api/Sala/${id}`);
-        // Success 🎉
-        console.log(response);
-    } catch (error) {
-        // Error 😨
-        if (error.response) {
-            console.log(error.response.data);
-            console.log(error.response.status);
-            console.log(error.response.headers);
-        } else if (error.request) {
-            console.log(error.request);
-        } else {
-            console.log('Error', error.message);
-        }
-        console.log(error);
-    }
-};
+  function onChange(ev) {
+    const{name , value} = ev.target;
 
-const deletarSala = async (id) => {
+    setValues({ ...values, [name]: value });
+  }
+
+  function onSubimitFormSala(ev){
+    ev.preventDefault();
+
+    try {
+      axios.post(`https://localhost:44354/api/Sala/`,  values )
+      .then(res => { console.log(res);  console.log(res.data);
+      
+      })
+
+   } catch (error) {
+      // Error 😨
+      if (error.response) {
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+      } else if (error.request) {
+          console.log(error.request);
+      } else {
+          console.log('Error', error.message);
+      }
+      console.log(error);
+   }
+ };
+   const deletarSala = async (id) => {
   try {
       const response = await axios.delete(`https://localhost:44354/api/Sala/${id}`);
       // Success 🎉
@@ -74,7 +89,7 @@ const deletarSala = async (id) => {
       }
       console.log(error);
   }
-};
+  };
   
 
   const handleClickOpen = () => {
@@ -109,7 +124,7 @@ const deletarSala = async (id) => {
               <TableCell>
               <IconButton onClick={handleClickOpen} style={{ color: green[500] }} aria-label="add"><AddBox /></IconButton>
               <IconButton color="primary" aria-label="edit"><Edit /></IconButton>
-              <IconButton onClick={handleClickOpen} color="action" aria-label="delete"><DeleteIcon /></IconButton>
+              <IconButton onClick={() => deletarSala(room.idsala)} color="action" aria-label="delete"><DeleteIcon /></IconButton>
               </TableCell>
             </TableRow>
           ))}
@@ -128,40 +143,25 @@ const deletarSala = async (id) => {
         </TableFooter>
       </MaterialTable>
       <div>
-    
-    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title"> Cadastro Salas</DialogTitle>
-      <DialogContent>
-        <DialogContentText>
-         Digite o Nº da sala e o Nome da sala abaixo!
+        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+          <DialogTitle id="form-dialog-title"> Cadastro Salas</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Digite o Nº da sala e o Nome da sala abaixo!
         </DialogContentText>
-        <TextField
-          autoFocus
-          margin="dense"
-          id="idsala"
-          label="Nº Sala"
-          type="number"
-          fullWidth
-        />
-         <TextField
-          autoFocus
-          margin="dense"
-          id="name"
-          label="Nome Sala"
-          type=""
-          fullWidth
-        />
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          Cancelar
-        </Button>
-        <Button onClick={cadastrarSala} color="primary">
-          Salvar
-        </Button>
-      </DialogActions>
-    </Dialog>
-  </div>
+        <form onSubmit={onSubimitFormSala}>
+              {/* <TextField onChange ={onChange} margin="dense" id="IDSALA" label="Nº Sala" type="number" fullWidth />
+              <TextField onChange ={onChange} margin="dense" id="NOME" label="Nome Sala" type="" fullWidth /> */}
+               <input placeholder="Nº Sala" type="text" name="IDSALA" onChange ={onChange} />
+               <input placeholder="Nome Sala" type="text" name="NOME" onChange ={onChange} />
+              <DialogActions>
+                <Button onClick={handleClose} color="primary">Cancelar </Button>
+                <Button type="submit" color="primary"> Salvar </Button>
+              </DialogActions>
+            </form>
+          </DialogContent>
+        </Dialog>
+      </div>
      
     </div>
     

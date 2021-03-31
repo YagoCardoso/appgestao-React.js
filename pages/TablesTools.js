@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Table from "../components/Table/TableSala";
-import CadSala from "../components/Form/CadSala";
 
 const TablesTools = () => {
 const [getSala, setSala] = useState([]);
