@@ -36,9 +36,9 @@ const Table = ({ title, heads, items }) => {
     setPage(0);
   };
 
-  const cadastrarSala = async (id) => {
+  const cadastrarAgendamento = async (id) => {
     try {
-        const response = await axios.post(`https://localhost:44354/api/Sala/${id}`);
+        const response = await axios.post(`https://localhost:44354/api/Agendamento/${id}`);
         // Success 🎉
         console.log(response);
     } catch (error) {
@@ -56,9 +56,9 @@ const Table = ({ title, heads, items }) => {
     }
 };
 
-const deletarSala = async (id) => {
+const deletarAgendamento = async (id) => {
   try {
-      const response = await axios.delete(`https://localhost:44354/api/Sala/${id}`);
+      const response = await axios.delete(`https://localhost:44354/api/Agendamento/${id}`);
       // Success 🎉
       console.log(response);
   } catch (error) {
@@ -87,7 +87,7 @@ const deletarSala = async (id) => {
 
   return (
     <div>
-      <p>&nbsp; {title} </p>
+      <p>&nbsp;<strong>{title}</strong></p>
       <MaterialTable>
         <TableHead>
           <TableRow>

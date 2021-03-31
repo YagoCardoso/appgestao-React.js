@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Table from "../components/Table/TableSala";
+import CadSala from "../components/Form/CadSala";
 
 const TablesTools = () => {
 const [getSala, setSala] = useState([]);
-const [getAgendamento, setAgendamento] = useState([]);
 const [getSalasDisponiveis, setSalasDisponiveis] = useState([]);
 const [getSalasIndisponiveis, setSalasIndisponiveis] = useState([]);
 
-
-const deleteUser = (id) => {
-axios.post(`https://jsonplaceholder.typicode.com/posts/${id}`);
-};
 
 useEffect(() => {
     axios.get("https://localhost:44354/api/Sala").then((myData) => {
@@ -34,13 +30,6 @@ setSalasIndisponiveis(data);
 });
 }, []);
 
-useEffect(() => {
-    axios.get("https://localhost:44354/api/Agendamento").then((myData) => {
-    const { data } = myData;
-    setAgendamento(data);
-    });
-    }, []);
-
     const treatDataDispo = getSalasDisponiveis.map((e) => {
         return Object.assign(e.sala)
       })
@@ -50,9 +39,7 @@ useEffect(() => {
 
 return (
 <>
-<Table title={["Agendamentos"]} heads={["id","titulo", "Data Inicio", "Data Fim", "Nº Sala","Ações"]} items={getAgendamento} />
-<br></br>
-<Table title={["Salas"]} heads={["Nº Sala", "Nome","Ações"]} items={getSala} btns={<button>+</button>} />
+<Table title={["Todas Salas"]} heads={["Nº Sala", "Nome","Ações"]} items={getSala} />
 <br></br>
 <Table title={["Salas Disponiveis"]} heads={["Nº Sala", "Nome","Ações"]} items={treatDataDispo} />
 <br></br>

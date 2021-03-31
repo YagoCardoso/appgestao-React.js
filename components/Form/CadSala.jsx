@@ -18,17 +18,38 @@ export default function FormDialog() {
     setOpen(false);
   };
 
+    const cadastrarSala = async (id) => {
+        try {
+            const response = await axios.post(`https://localhost:44354/api/Sala/${id}`);
+            // Success 🎉
+            console.log(response);
+        } catch (error) {
+            // Error 😨
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+                console.log(error.response.headers);
+            } else if (error.request) {
+                console.log(error.request);
+            } else {
+                console.log('Error', error.message);
+            }
+            console.log(error);
+        }
+    };
+    
+
   return (
+
+    
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open form dialog
+      <Button variant="outlined" color="primary" onClick={handleClickOpen}>Cadastrar Sala
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle id="form-dialog-title"> Cadastro Salas</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here. We will send updates
-            occasionally.
+           Digite o Nº da sala e o Nome da sala abaixo!
           </DialogContentText>
           <TextField
             autoFocus
@@ -49,10 +70,10 @@ export default function FormDialog() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Cancel
+            Cancelar
           </Button>
-          <Button onClick={handleClose} color="primary">
-            Subscribe
+          <Button onClick={cadastrarSala} color="primary">
+            Salvar
           </Button>
         </DialogActions>
       </Dialog>

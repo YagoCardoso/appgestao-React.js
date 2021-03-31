@@ -11,15 +11,15 @@ const Layout = ({children}) => {
         <>
             <header>
                 <AppBar>
-                    <div>
+                    <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
                     <Link href={`/TablesTools`}>
-                            <a>Home |</a>
+                            <a><strong>Home |&nbsp; </strong></a>
                         </Link>
-                        <Link href={`/CadSala`}>
-                            <a> Incluir Sala |</a>
+                        <Link href={`/TablesTools`}>
+                            <a><strong>&nbsp; Salas | &nbsp;</strong> </a>
                         </Link>
-                        <Link href={`/TableTools`}>
-                            <a> Reservar  Sala</a>
+                        <Link href={`/TablesAgendamento`}>
+                            <a><strong>&nbsp; Reservar  Sala</strong> </a>
                         </Link>
                     </div>
                 </AppBar>
@@ -27,7 +27,7 @@ const Layout = ({children}) => {
             </header>
         {children}
         <footer>
-            meu footer
+       
         </footer>
         </>
     );
