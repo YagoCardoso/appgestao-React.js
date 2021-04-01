@@ -21,6 +21,7 @@ import  AddBox  from '@material-ui/icons/AddBox';
 import  Edit  from '@material-ui/icons/Edit';
 import { green } from '@material-ui/core/colors';
 import axios from "axios";
+import Link from 'next/link';
 
 const initialValue = {
   TITULO: '',
@@ -118,14 +119,14 @@ const Table = ({ title, heads, items }) => {
             ? items.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : items
           ).map((room) => (
-            <TableRow key={room.idsala}>
+            <TableRow key={room.idagendamento}>
               {Object.values(room).map((f) => (
                 <TableCell key={f}>{f}</TableCell>
                 
               ))}
               <TableCell>
               <IconButton onClick={handleClickOpen} style={{ color: green[500] }} aria-label="add"><AddBox /></IconButton>
-              <IconButton color="primary" aria-label="edit"><Edit /></IconButton>
+              <Link href={`reservation/${room.idagendamento}`} ><a><Edit /></a></Link>
               <IconButton onClick={() => deletarAgendamento(room.idagendamento)} color="action" aria-label="delete"><DeleteIcon /></IconButton>
               </TableCell>
             </TableRow>

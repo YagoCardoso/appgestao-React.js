@@ -12,14 +12,14 @@ const Layout = ({children}) => {
             <header>
                 <AppBar>
                     <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
-                    <Link href={`/TablesTools`}>
+                    <Link href={`/TablesSalasFull`}>
                             <a><strong>Home |&nbsp; </strong></a>
                         </Link>
-                        <Link href={`/TablesTools`}>
+                        <Link href={`/TablesSalasFull`}>
                             <a><strong>&nbsp; Salas | &nbsp;</strong> </a>
                         </Link>
                         <Link href={`/TablesAgendamento`}>
-                            <a><strong>&nbsp; Reservar  Sala</strong> </a>
+                            <a><strong>&nbsp; Reservas/Reservar</strong> </a>
                         </Link>
                     </div>
                 </AppBar>
