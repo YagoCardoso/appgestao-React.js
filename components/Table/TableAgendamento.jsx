@@ -73,7 +73,7 @@ const Table = ({ title, heads, items }) => {
       console.log(error);
    }
  };
-   const deletarSala = async (id) => {
+   const deletarAgendamento = async (id) => {
   try {
       const response = await axios.delete(`https://localhost:44354/api/Agendamento${id}`);
       // Success 🎉
@@ -126,7 +126,7 @@ const Table = ({ title, heads, items }) => {
               <TableCell>
               <IconButton onClick={handleClickOpen} style={{ color: green[500] }} aria-label="add"><AddBox /></IconButton>
               <IconButton color="primary" aria-label="edit"><Edit /></IconButton>
-              <IconButton onClick={() => deletarSala(room.idagendamento)} color="action" aria-label="delete"><DeleteIcon /></IconButton>
+              <IconButton onClick={() => deletarAgendamento(room.idagendamento)} color="action" aria-label="delete"><DeleteIcon /></IconButton>
               </TableCell>
             </TableRow>
           ))}

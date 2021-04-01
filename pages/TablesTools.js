@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Table from "../components/Table/TableSala";
+import TableSalaDispANDind from "../components/Table/TableSalaDispANDind";
+
 
 const TablesTools = () => {
 const [getSala, setSala] = useState([]);
@@ -38,11 +40,11 @@ setSalasIndisponiveis(data);
 
 return (
 <>
-<Table title={["Todas Salas"]} heads={["Nº Sala", "Nome","Ações"]} items={getSala} />
+<Table title={["Todas Salas"]} heads={["Nº Sala", "Nome","Ações"]} items={getSala} callback={setSala} />
 <br></br>
-<Table title={["Salas Disponiveis"]} heads={["Nº Sala", "Nome","Ações"]} items={treatDataDispo} />
+<TableSalaDispANDind title={["Salas Disponiveis"]} heads={["Nº Sala", "Nome"]} items={treatDataDispo} />
 <br></br>
-<Table title={["Salas Indisponiveis"]} heads={["Nº Sala", "Nome","Ações"]} items={treatDataInd} />
+<TableSalaDispANDind title={["Salas Indisponiveis"]} heads={["Nº Sala", "Nome"]} items={treatDataInd} />
 </>
 );
 };

@@ -21,17 +21,25 @@ import  AddBox  from '@material-ui/icons/AddBox';
 import  Edit  from '@material-ui/icons/Edit';
 import { green } from '@material-ui/core/colors';
 import axios from "axios";
+import { Router } from '@material-ui/icons';
+import { Function } from 'prop-types'
+import Link from 'next/link';
+
+
 
 const initialValue = {
   IDSALA: '',
   NOME: '',
 }
 
-const Table = ({ title, heads, items }) => {
+const Table = ({ title, heads, items, callback }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [open, setOpen] = React.useState(false); 
   const [values, setValues] = useState(initialValue);
+  const [ getRooms, setRooms ] = useState([])
+  const [getSala, setSala] = useState([]);
+
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -48,13 +56,20 @@ const Table = ({ title, heads, items }) => {
     setValues({ ...values, [name]: value });
   }
 
+
+
   function onSubimitFormSala(ev){
     ev.preventDefault();
 
     try {
       axios.post(`https://localhost:44354/api/Sala/`,  values )
       .then(res => { console.log(res);  console.log(res.data);
-      
+        if(res.status == 200){ 
+        alert('Cadastrado com sucesso');
+        setOpen(false);
+         
+    }
+     
       })
 
    } catch (error) {
@@ -71,6 +86,9 @@ const Table = ({ title, heads, items }) => {
       console.log(error);
    }
  };
+
+
+
    const deletarSala = async (id) => {
   try {
       const response = await axios.delete(`https://localhost:44354/api/Sala/${id}`);
@@ -123,7 +141,8 @@ const Table = ({ title, heads, items }) => {
               ))}
               <TableCell>
               <IconButton onClick={handleClickOpen} style={{ color: green[500] }} aria-label="add"><AddBox /></IconButton>
-              <IconButton color="primary" aria-label="edit"><Edit /></IconButton>
+                <IconButton color="primary" aria-label="edit" id={room.idsala}></IconButton>
+                <Link href={`room/${room.idsala}`} ><a><Edit /></a></Link>
               <IconButton onClick={() => deletarSala(room.idsala)} color="action" aria-label="delete"><DeleteIcon /></IconButton>
               </TableCell>
             </TableRow>
@@ -143,7 +162,7 @@ const Table = ({ title, heads, items }) => {
         </TableFooter>
       </MaterialTable>
       <div>
-        <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <Dialog callback={setSala}  open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title"> Cadastro Salas</DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -176,6 +195,10 @@ Table.defaultProps = {
 Table.propTypes = {
   title: string,
   heads: array.isRequired,
+};
+
+Table.propTypes = {
+  callback: Function
 };
 
 export default Table;
