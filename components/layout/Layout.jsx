@@ -12,7 +12,7 @@ const Layout = ({children}) => {
             <header>
                 <AppBar>
                     <div style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}>
-                    <Link href={`/TablesSalasFull`}>
+                    <Link href={`/`}>
                             <a><strong>Home |&nbsp; </strong></a>
                         </Link>
                         <Link href={`/TablesSalasFull`}>

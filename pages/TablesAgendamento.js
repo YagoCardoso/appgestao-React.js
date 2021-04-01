@@ -14,7 +14,7 @@ useEffect(() => {
 
 return (
 <>
-<TableAgendamento title={["Agendamentos"]} heads={["","titulo", "Data Inicio", "Data Fim", "Nº Sala","Ações",]} items={getAgendamento} />
+<TableAgendamento title={["Agendamentos"]} heads={["","titulo", "Data Inicio", "Data Fim", "","Nº Sala","Ações"]} items={getAgendamento} />
 <br></br>
 </>
 );

@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import {useRouter} from 'next/router'
 import axios from "axios";
 import { makeStyles } from '@material-ui/core/styles';
+import SaveIcon from '@material-ui/icons/Save';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -43,30 +44,39 @@ const [dt_inicio, setDataInicio] = useState('');
 const [dt_fim, setDataFim] = useState('');
 const [idsala, setIDsala] = useState('');
 
+console.log("id"+id)
 
 useEffect(() => {
-    axios.get(`https://localhost:44354/api/Agendamento/${router.query.id}`).then((myData) => {
+    axios.get(`https://localhost:44354/api/Agendamento/${id}`).then((myData) => {
 const { data } = myData;
 setAgendamento(data);
 });
 }, []);
 
 const submitValue = () => {
+
+  console.log(dt_fim);
+
+  if(titulo == ''){   setTitulo(getAgendamento.titulo) }
+  if(dt_inicio.length < 1){setDataInicio(getAgendamento.dT_INICIO)}
+  if(dt_fim.length < 2){setDataFim(getAgendamento.dT_FIM)}
+  if(idsala == ""){setIDsala(getAgendamento.idsala)}
+
   const frmdetails = {
-    'id' : router.query.id,
-      'idagendamento' : router.query.id,
-      'titulo' : titulo,
-      'dT_INICIO': dt_inicio,
-      'dT_FIM': dt_fim,
-      'idsala': idsala,
+    'id' : id,
+    'idagendamento' : id,
+    'titulo' : titulo,
+    'dT_INICIO': dt_inicio,
+    'dT_FIM': dt_fim,
+    'idsala': idsala,
   }
-  console.log(frmdetails);
+   
   try {
-    axios.patch(`https://localhost:44354/api/Agendamento/${router.query.id}`, frmdetails )
+    axios.patch(`https://localhost:44354/api/Agendamento/${id}`, frmdetails )
     .then(res => { console.log(res);  console.log(res.data);
       if(res.status == 200){ 
       alert('Alterado com sucesso');
-      setAgendamento(data);
+      router.push('/TablesAgendamento');
   }
    
     })
@@ -84,7 +94,12 @@ const submitValue = () => {
     }
     console.log(error);
  }
-}
+ }
+
+ const cancelFunct = () => {
+  router.push('/TablesAgendamento');
+};
+
 
 return (
 <>
@@ -101,8 +116,16 @@ return (
               <TextField  defaultValue={getAgendamento.dT_FIM} onChange={e => setDataFim(e.target.value)}  margin="dense" helperText={`Atual: ${getAgendamento.dT_FIM}`}  name="DT_FIM" label="Data Fim" type="datetime-local"  variant="outlined" className={classes.textField} InputLabelProps={{ shrink: true, }}    />
               <TextField  defaultValue={getAgendamento.idsala} onChange={e => setIDsala(e.target.value)}  margin="dense" helperText={`Atual Nº: ${getAgendamento.idsala}`}  name="IDSALA" label="Nº Sala" type="text"  variant="outlined"    />
                <br></br>
-                <Button color="primary">Cancelar </Button>
-                <Button onClick={submitValue}  color="primary"> Salvar </Button>
+                <Button onClick={cancelFunct} variant="contained" color="default" color="danger">Cancelar </Button>
+            <Button onClick={submitValue}
+              variant="contained"
+              color="primary"
+              size="small"
+              className={classes.button}
+              startIcon={<SaveIcon />}
+            >
+              Salvar
+      </Button>
             </form>
           </DialogContent>
       </div>

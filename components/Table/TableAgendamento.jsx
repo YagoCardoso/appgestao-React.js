@@ -75,12 +75,17 @@ const Table = ({ title, heads, items }) => {
    }
  };
    const deletarAgendamento = async (id) => {
-  try {
-      const response = await axios.delete(`https://localhost:44354/api/Agendamento${id}`);
-      // Success 🎉
-      console.log(response);
+     try {
+       const response = await axios.delete(`https://localhost:44354/api/Agendamento/${id}`);
+       if (response.status == 200) {
+         // Success 
+         console.log(response);
+         alert("Excluido com sucesso!")
+         router.push('/TablesAgendamento');
+       }
+     
   } catch (error) {
-      // Error 😨
+      // Error 
       if (error.response) {
           console.log(error.response.data);
           console.log(error.response.status);
@@ -125,9 +130,9 @@ const Table = ({ title, heads, items }) => {
                 
               ))}
               <TableCell>
-              <IconButton onClick={handleClickOpen} style={{ color: green[500] }} aria-label="add"><AddBox /></IconButton>
+              <a onClick={handleClickOpen} style={{ color: green[500] }} aria-label="add"><AddBox /></a>
               <Link href={`reservation/${room.idagendamento}`} ><a><Edit /></a></Link>
-              <IconButton onClick={() => deletarAgendamento(room.idagendamento)} color="action" aria-label="delete"><DeleteIcon /></IconButton>
+              <Link href={`deleteAgendamento/${room.idagendamento}`} color="action" aria-label="delete"><a><DeleteIcon /> </a></Link>
               </TableCell>
             </TableRow>
           ))}

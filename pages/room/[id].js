@@ -8,6 +8,8 @@ import TextField from '@material-ui/core/TextField';
 import {useRouter} from 'next/router'
 import axios from "axios";
 import { makeStyles } from '@material-ui/core/styles';
+import SaveIcon from '@material-ui/icons/Save';
+
 
 const initialValue = {
     ID:'',
@@ -32,6 +34,7 @@ const id = router.query.id;
 const [values, setValues] = useState(initialValue);
 const [nomeSala, setName] = useState('');
 
+
 useEffect(() => {
     axios.get(`https://localhost:44354/api/Sala/${router.query.id}`).then((myData) => {
 const { data } = myData;
@@ -50,6 +53,7 @@ const submitValue = () => {
     .then(res => { console.log(res);  console.log(res.data);
       if(res.status == 200){ 
       alert('Alterado com sucesso');
+      router.push('/TablesSalasFull');
        
   }
    
@@ -107,6 +111,11 @@ function onSubimitUpdateFormSala(ev){
     setValues({ ...values, [name]: value });
   }
 
+  const cancelFunct = () => {
+    router.push('/TablesSalasFull');
+  };
+  
+
 return (
 <>
 <div>
@@ -117,14 +126,19 @@ return (
             <DialogContentText>
         </DialogContentText>
         <form onSubmit={onSubimitUpdateFormSala} className={classes.root}>
-              <TextField helperText="não permitido, exlcua e crie uma nova." disabled onChange ={onChange}  margin="dense" value={getSala.idsala}   name="IDSALA" label="Nº Sala" type="text"  variant="outlined" autoFocus   />
+              <TextField helperText="não permitido, delete e crie uma nova." disabled onChange ={onChange}  margin="dense" value={getSala.idsala}   name="IDSALA" label="Nº Sala" type="text"  variant="outlined" autoFocus   />
               <TextField  onChange={e => setName(e.target.value)}  margin="dense" helperText={`Atual: ${getSala.nome}`}  name="NOME" label="Nome Sala" type="text"  variant="outlined" autoFocus   />
-             
-               {/* <input placeholder="Nº Sala" type="text" name="IDSALA" />
-               <input placeholder="Nome Sala" type="text" name="NOME" /> */}
                <br></br>
-                <Button color="primary">Cancelar </Button>
-                <Button onClick={submitValue}  color="primary"> Salvar </Button>
+               <Button onClick={cancelFunct} variant="contained" color="default" color="danger">Cancelar </Button>
+            <Button onClick={submitValue}
+              variant="contained"
+              color="primary"
+              size="small"
+              className={classes.button}
+              startIcon={<SaveIcon />}
+            >
+              Salvar
+      </Button>
             </form>
           </DialogContent>
       </div>

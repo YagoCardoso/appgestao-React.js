@@ -67,6 +67,7 @@ const Table = ({ title, heads, items, callback }) => {
         if(res.status == 200){ 
         alert('Cadastrado com sucesso');
         setOpen(false);
+        setSala(res)
          
     }
      
@@ -140,10 +141,9 @@ const Table = ({ title, heads, items, callback }) => {
                 
               ))}
               <TableCell>
-              <IconButton onClick={handleClickOpen} style={{ color: green[500] }} aria-label="add"><AddBox /></IconButton>
-                <IconButton color="primary" aria-label="edit" id={room.idsala}></IconButton>
-                <Link href={`room/${room.idsala}`} ><a><Edit /></a></Link>
-              <IconButton onClick={() => deletarSala(room.idsala)} color="action" aria-label="delete"><DeleteIcon /></IconButton>
+              <a title="Inserir Novo" onClick={handleClickOpen} style={{ color: green[500]}}><AddBox /></a>
+                <Link  title="Editar" href={`room/${room.idsala}`} ><a><Edit /></a></Link>
+                <Link  title="Deletar" href={`deleteRoom/${room.idsala}`} ><a><DeleteIcon /></a></Link>
               </TableCell>
             </TableRow>
           ))}
