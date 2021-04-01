@@ -53,6 +53,7 @@ setAgendamento(data);
 
 const submitValue = () => {
   const frmdetails = {
+    'id' : router.query.id,
       'idagendamento' : router.query.id,
       'titulo' : titulo,
       'dT_INICIO': dt_inicio,
@@ -61,7 +62,7 @@ const submitValue = () => {
   }
   console.log(frmdetails);
   try {
-    axios.put(`https://localhost:44354/api/Agendamento/${router.query.id}`, frmdetails )
+    axios.patch(`https://localhost:44354/api/Agendamento/${router.query.id}`, frmdetails )
     .then(res => { console.log(res);  console.log(res.data);
       if(res.status == 200){ 
       alert('Alterado com sucesso');
@@ -95,10 +96,10 @@ return (
             <DialogContentText>
         </DialogContentText>
         <form className={classes.root}>
-              <TextField  onChange={e => setTitulo(e.target.value)}  margin="dense" helperText={`Atual: ${getAgendamento.titulo}`}  name="TITULO" label="TItulo" type="text"  variant="outlined" autoFocus   />
-              <TextField  onChange={e => setDataInicio(e.target.value)}  margin="dense" helperText={`Atual: ${getAgendamento.dT_INICIO}`}  name="DT_INICIO" label="Data Inicio" type="datetime-local"  variant="outlined" className={classes.textField} InputLabelProps={{ shrink: true, }}    />
-              <TextField  onChange={e => setDataFim(e.target.value)}  margin="dense" helperText={`Atual: ${getAgendamento.dT_FIM}`}  name="DT_FIM" label="Data Fim" type="datetime-local"  variant="outlined" className={classes.textField} InputLabelProps={{ shrink: true, }}    />
-              <TextField  onChange={e => setIDsala(e.target.value)}  margin="dense" helperText={`Atual Nº: ${getAgendamento.idsala}`}  name="IDSALA" label="Nº Sala" type="text"  variant="outlined"    />
+              <TextField  defaultValue={getAgendamento.titulo} onChange={e => setTitulo(e.target.value)}  margin="dense" helperText={`Atual: ${getAgendamento.titulo}`}  name="TITULO" label="TItulo" type="text"  variant="outlined"    />
+              <TextField  defaultValue={getAgendamento.dT_INICIO} onChange={e => setDataInicio(e.target.value)}  margin="dense" helperText={`Atual: ${getAgendamento.dT_INICIO}`}  name="DT_INICIO" label="Data Inicio" type="datetime-local"  variant="outlined" className={classes.textField} InputLabelProps={{ shrink: true, }}    />
+              <TextField  defaultValue={getAgendamento.dT_FIM} onChange={e => setDataFim(e.target.value)}  margin="dense" helperText={`Atual: ${getAgendamento.dT_FIM}`}  name="DT_FIM" label="Data Fim" type="datetime-local"  variant="outlined" className={classes.textField} InputLabelProps={{ shrink: true, }}    />
+              <TextField  defaultValue={getAgendamento.idsala} onChange={e => setIDsala(e.target.value)}  margin="dense" helperText={`Atual Nº: ${getAgendamento.idsala}`}  name="IDSALA" label="Nº Sala" type="text"  variant="outlined"    />
                <br></br>
                 <Button color="primary">Cancelar </Button>
                 <Button onClick={submitValue}  color="primary"> Salvar </Button>
